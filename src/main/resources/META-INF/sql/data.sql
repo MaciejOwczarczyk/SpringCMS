@@ -21,9 +21,15 @@ insert into articles (content, createdOn, title, author_id) VALUES ('content', 2
 insert into articles (content, createdOn, title, author_id) VALUES ('content', 20110101,'title', 5);
 
 
-insert into categories (description, name, article_id) VALUES ('description', 'name', 1);
-insert into categories (description, name, article_id) VALUES ('description', 'name', 2);
-insert into categories (description, name, article_id) VALUES ('description', 'name', 2);
-insert into categories (description, name, article_id) VALUES ('description', 'name', 3);
-insert into categories (description, name, article_id) VALUES ('description', 'name', 4);
-insert into categories (description, name, article_id) VALUES ('description', 'name', 1);
+insert into categories (description, name) values ('thriller', 'rodzaj')
+insert into categories (description, name) values ('Thriller', 'Rodzaj');
+insert into categories (description, name) values ('Thriller', 'Rodzaj');
+insert into categories (description, name) values ('Thriller', 'Rodzaj');
+insert into categories (description, name) values ('Thriller', 'Rodzaj');
+
+insert into articles_categories (Article_id, categories_id) values (1,2);
+insert into articles_categories (Article_id, categories_id) values (1,3);
+insert into articles_categories (Article_id, categories_id) values (1,4);
+insert into articles_categories (Article_id, categories_id) values (2,2);
+insert into articles_categories (Article_id, categories_id) values (4,2);
+insert into articles_categories (Article_id, categories_id) values (4,2);

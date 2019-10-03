@@ -1,18 +1,23 @@
 package pl.coderslab.Author;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.Article.Article;
+import pl.coderslab.Article.ArticleDao;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/author")
 public class AuthorController {
 
     private final AuthorDao authorDao;
+    private final ArticleDao articleDao;
 
-    public AuthorController(AuthorDao authorDao) {
+    public AuthorController(AuthorDao authorDao, ArticleDao articleDao) {
         this.authorDao = authorDao;
+        this.articleDao = articleDao;
     }
 
 
@@ -50,11 +55,17 @@ public class AuthorController {
     @GetMapping("confirmDelete/{id}")
     public String confirmDelete(@PathVariable Long id, Model model){
         model.addAttribute("authorId", id);
-        return "confirmAuthorDelete";
+        return "confirmDeleteAuthor";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
+        List<Article> articles = articleDao.findAll();
+        for (Article article : articles) {
+            if (article.getAuthor().getId() == authorDao.find(id).getId()) {
+                return "deleteAuthorWarning";
+            }
+        }
         authorDao.delete(id);
         return "redirect:../showAll";
     }

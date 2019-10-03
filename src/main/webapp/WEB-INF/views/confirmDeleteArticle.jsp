@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: maciejowczarczyk
-  Date: 02/10/2019
-  Time: 20:49
+  Date: 03/10/2019
+  Time: 23:58
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -19,29 +19,13 @@
 <div class="container-fluid">
     <table class="table">
         <tr>
-            <th>
-                <a href="/author/add" class="btn btn-success">Add new author</a>
-            </th>
-        </tr>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
             <th>Action</th>
         </tr>
-        <c:forEach items="${authors}" var="author">
-            <tr>
-                <td>${author.firstName}</td>
-                <td>${author.lastName}</td>
-                <td>
-                    <a href="/author/edit/${author.id}" class="btn btn-primary">Edit</a>
-                    <a href="/author/confirmDelete/${author.id}" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        </c:forEach>
         <tr>
-            <th>
-                <a href="/" class="btn btn-warning">Back</a>
-            </th>
+            <td>
+                <a href="/article/showAll" class="btn btn-primary">Cancel</a>
+                <a href="/article/delete/${articleId}" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
     </table>
 </div>

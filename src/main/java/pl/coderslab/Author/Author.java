@@ -1,5 +1,7 @@
 package pl.coderslab.Author;
 
+import pl.coderslab.Article.Article;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,11 @@ public class Author {
     private String lastName;
 
     public Author() {
+    }
+
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public Long getId() {

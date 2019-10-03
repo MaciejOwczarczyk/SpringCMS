@@ -2,8 +2,7 @@ package pl.coderslab.Article;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.Author.Author;
 import pl.coderslab.Author.AuthorDao;
 import pl.coderslab.Category.Category;
@@ -34,6 +33,50 @@ public class ArticleController {
     @ModelAttribute("authors")
     public List<Author> fetchAllAuthors() {
         return authorDao.findAll();
+    }
+
+    @GetMapping("/add")
+    public String add(Model model) {
+        model.addAttribute("article", new Article());
+        return "addArticle";
+    }
+
+    @PostMapping("/add")
+    public String addProcess(@ModelAttribute Article article) {
+        article.prePersist();
+        articleDao.save(article);
+        return "redirect:showAll";
+    }
+
+    @GetMapping("/showAll")
+    public String showAll(Model model) {
+        model.addAttribute("articles", articleDao.findAll());
+        return "showAllArticles";
+    }
+
+    @GetMapping("/confirmDelete/{id}")
+    public String confirmDelete(@PathVariable Long id, Model model) {
+        model.addAttribute("articleId", id);
+        return "confirmDeleteArticle";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        articleDao.delete(id);
+        return "redirect:../showAll";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        Article article = articleDao.find(id);
+        model.addAttribute("article", article);
+        return "addArticle";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editProcess(@ModelAttribute Article article) {
+        articleDao.update(article);
+        return "redirect:../showAll";
     }
 
 }

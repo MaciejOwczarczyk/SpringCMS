@@ -18,18 +18,8 @@ public class Category {
     @Column(nullable = true)
     private String description;
 
-    @ManyToOne
-    private Article article;
 
     public Category() {
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
     }
 
     public Long getId() {
@@ -62,7 +52,7 @@ public class Category {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", article=" + article +
+                ", article=" +  +
                 '}';
     }
 }
