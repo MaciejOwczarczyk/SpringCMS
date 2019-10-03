@@ -21,7 +21,7 @@ public class Article {
     @OneToOne
     private Author author;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "article")
     private List<Category> categories;
 
     private String content;
