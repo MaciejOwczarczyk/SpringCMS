@@ -19,6 +19,7 @@
     <form:form method="post" modelAttribute="category">
         <label>Name:</label>
         <form:input path="name" class="form-control" id="nameId" type="text"/>
+        <form:errors path="name" cssClass="error">Minimum 5 znaków</form:errors>
 
         <br/>
 

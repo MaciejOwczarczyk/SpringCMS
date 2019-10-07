@@ -2,6 +2,8 @@ package pl.coderslab.Category;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.Article.Article;
 import pl.coderslab.Article.ArticleDao;
@@ -28,7 +30,10 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String addProcess(@ModelAttribute Category category) {
+    public String addProcess(@ModelAttribute @Validated Category category, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addCategory";
+        }
         categoryDao.save(category);
         return "redirect:showAll";
     }
@@ -47,7 +52,10 @@ public class CategoryController {
     }
 
     @PostMapping("/edit/{id}")
-    public String processEdit(@ModelAttribute Category category) {
+    public String processEdit(@ModelAttribute @Validated Category category, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addCategory";
+        }
         categoryDao.update(category);
         return "redirect:../showAll";
     }

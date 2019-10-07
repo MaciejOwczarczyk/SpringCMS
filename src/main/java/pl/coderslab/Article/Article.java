@@ -5,6 +5,9 @@ import pl.coderslab.Author.Author;
 import pl.coderslab.Category.Category;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,15 +19,22 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(max = 200)
     private String title;
 
     @OneToOne
     private Author author;
 
+    @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
 
+    @NotBlank
+    @Size(min = 10)
     private String content;
+
+
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
 

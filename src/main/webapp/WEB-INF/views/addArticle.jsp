@@ -19,11 +19,13 @@
     <form:form method="post" modelAttribute="article">
         <label>Title:</label>
         <form:input path="title" id="titleId" type="text" class="form-control"/>
+        <form:errors path="title" cssClass="error">Maksymalnie 200 znaków</form:errors>
 
         <br/>
 
         <label>Content:</label>
         <form:textarea path="content" cols="5" rows="5" class="form-control" id="contentId"/>
+        <form:errors path="content" cssClass="error">Minimalnie 500 znaków</form:errors>
 
         <br/>
 
@@ -32,6 +34,7 @@
 
         <label for="categoriesId">Categories</label>
         <form:select path="categories" items="${categories}" itemLabel="name" itemValue="id" id="categoriesId" class="form-control"/>
+        <form:errors path="categories" cssClass="error">Pole wymagane</form:errors>
 
         <br/>
 

@@ -3,6 +3,8 @@ package pl.coderslab.Author;
 import pl.coderslab.Article.Article;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "authors")
@@ -12,7 +14,10 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
 
     public Author() {

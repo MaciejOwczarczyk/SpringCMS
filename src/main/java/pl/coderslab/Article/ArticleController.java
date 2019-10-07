@@ -2,6 +2,8 @@ package pl.coderslab.Article;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.Author.Author;
 import pl.coderslab.Author.AuthorDao;
@@ -43,7 +45,10 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    public String addProcess(@ModelAttribute Article article) {
+    public String addProcess(@ModelAttribute @Validated Article article, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addArticle";
+        }
         article.prePersist();
         articleDao.save(article);
         return "redirect:showAll";
@@ -76,7 +81,10 @@ public class ArticleController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editProcess(@ModelAttribute Article article) {
+    public String editProcess(@PathVariable Long id, @ModelAttribute @Validated Article article, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addArticle";
+        }
         articleDao.update(article);
         return "redirect:../showAll";
     }

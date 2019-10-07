@@ -19,11 +19,13 @@
     <form:form method="post" modelAttribute="author">
         <label>First Name:</label>
         <form:input path="firstName" class="form-control" id="nameId" type="text"/>
+        <form:errors path="firstName" cssClass="error">Pole wymagane</form:errors>
 
         <br/>
 
         <label>Last Name:</label>
         <form:input path="lastName" type="text" id="descriptionId" class="form-control"/>
+        <form:errors path="lastName" cssClass="error">Pole wymagane</form:errors>
 
         <input type="submit" class="btn btn-primary" value="Save">
     </form:form>

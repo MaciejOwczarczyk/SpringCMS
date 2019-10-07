@@ -32,7 +32,7 @@
         <c:forEach items="${articles}" var="article">
             <tr>
                 <td>${article.title}</td>
-                <td>${article.content}</td>
+                <td>${article.content.substring(0, 10)}...</td>
                 <td>${article.author.fullName}</td>
                 <td>
                     <c:forEach items="${article.categories}" var="category">
