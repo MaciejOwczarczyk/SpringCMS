@@ -9,6 +9,7 @@ import pl.coderslab.Category.Category;
 import pl.coderslab.Category.CategoryDao;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/article")
@@ -50,7 +51,8 @@ public class ArticleController {
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        model.addAttribute("articles", articleDao.findAll());
+        List<Article> articles = articleDao.findAll();
+        model.addAttribute("articles", articles);
         return "showAllArticles";
     }
 

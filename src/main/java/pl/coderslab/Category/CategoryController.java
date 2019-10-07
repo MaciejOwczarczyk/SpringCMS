@@ -3,15 +3,21 @@ package pl.coderslab.Category;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.Article.Article;
+import pl.coderslab.Article.ArticleDao;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
 
     private final CategoryDao categoryDao;
+    private final ArticleDao articleDao;
 
-    public CategoryController(CategoryDao categoryDao) {
+    public CategoryController(CategoryDao categoryDao, ArticleDao articleDao) {
         this.categoryDao = categoryDao;
+        this.articleDao = articleDao;
     }
 
 
@@ -54,6 +60,15 @@ public class CategoryController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
+        List<Article> articles = articleDao.findAll();
+        for (Article article : articles) {
+            List<Category> categories = article.getCategories();
+            boolean check = categories.stream().
+                    map(Category::getId).anyMatch(o -> o.equals(categoryDao.find(id).getId()));
+            if (check) {
+                return "deleteCategoryWarning";
+            }
+        }
         categoryDao.delete(id);
         return "redirect:../showAll";
     }
