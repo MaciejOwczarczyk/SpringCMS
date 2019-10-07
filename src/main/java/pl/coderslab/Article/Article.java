@@ -1,6 +1,6 @@
 package pl.coderslab.Article;
 
-import org.springframework.stereotype.Component;
+
 import pl.coderslab.Author.Author;
 import pl.coderslab.Category.Category;
 
@@ -31,7 +31,7 @@ public class Article {
     private List<Category> categories;
 
     @NotBlank
-    @Size(min = 10)
+    @ContentLength
     private String content;
 
 

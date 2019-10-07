@@ -25,7 +25,7 @@
 
         <label>Content:</label>
         <form:textarea path="content" cols="5" rows="5" class="form-control" id="contentId"/>
-        <form:errors path="content" cssClass="error">Minimalnie 500 znaków</form:errors>
+<%--        <form:errors path="content" cssClass="error">Minimalnie 500 znaków</form:errors>--%>
 
         <br/>
 
