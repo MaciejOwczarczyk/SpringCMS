@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Title</title>
+    <h1 class="label">Drafts</h1>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -19,39 +20,26 @@
     <table class="table">
         <tr>
             <th>
-                <a href="/article/add" class="btn btn-success">Add new article</a>
-            </th>
-            <th>
-                <a href="/draft/showAll" class="btn btn-success">Show drafts</a>
+                <a href="/draft/add" class="btn btn-success">Add new article/draft</a>
             </th>
         </tr>
         <tr>
             <th>Title</th>
             <th>Content</th>
-            <th>Author</th>
-            <th>Categories</th>
-            <th>Created on</th>
         </tr>
         <c:forEach items="${articles}" var="article">
             <tr>
                 <td>${article.title}</td>
                 <td>${article.content.substring(0, 10)}...</td>
-                <td>${article.author.fullName}</td>
                 <td>
-                    <c:forEach items="${article.categories}" var="category">
-                        ${category.name}<br>
-                    </c:forEach>
-                </td>
-                <td>${article.createdOn}</td>
-                <td>
-                    <a href="/article/edit/${article.id}" class="btn btn-primary">Edit</a>
-                    <a href="/article/confirmDelete/${article.id}" class="btn btn-danger">Delete</a>
+                    <a href="/draft/edit/${article.id}" class="btn btn-primary">Edit</a>
+                    <a href="/draft/confirmDelete/${article.id}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         </c:forEach>
         <tr>
             <th>
-                <a href="/" class="btn btn-warning">Back</a>
+                <a href="/article/showAll" class="btn btn-warning">Back</a>
             </th>
         </tr>
     </table>

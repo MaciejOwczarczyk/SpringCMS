@@ -17,6 +17,11 @@
 <body>
 <div class="container-fluid">
     <form:form method="post" modelAttribute="article">
+        <label>Draft</label>
+        <form:checkbox path="draft" id="draftId"/>
+
+        <br/>
+
         <label>Title:</label>
         <form:input path="title" id="titleId" type="text" class="form-control"/>
         <form:errors path="title" cssClass="error">Maksymalnie 200 znaków</form:errors>
@@ -25,12 +30,13 @@
 
         <label>Content:</label>
         <form:textarea path="content" cols="5" rows="5" class="form-control" id="contentId"/>
-<%--        <form:errors path="content" cssClass="error">Minimalnie 500 znaków</form:errors>--%>
+        <form:errors path="content" cssClass="error"/>
 
         <br/>
 
         <label for="authorId">Author</label>
         <form:select path="author.id" items="${authors}" itemLabel="fullName" itemValue="id" id="authorId" class="form-control"/>
+        <form:errors path="author" cssClass="error">Musisz wybrać autora</form:errors>
 
         <label for="categoriesId">Categories</label>
         <form:select path="categories" items="${categories}" itemLabel="name" itemValue="id" id="categoriesId" class="form-control"/>

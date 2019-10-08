@@ -29,5 +29,27 @@ public class ArticleDao extends GenericDao<Article> {
         return articles;
     }
 
+    @Transactional
+    public List<Article> findDrafts() {
+        Query query = entityManager.createQuery("select  b from Article b where b.draft = true");
+        List<Article> articles = query.getResultList();
+        return articles;
+    }
+
+    @Transactional
+    public Article findWithCategories(Long id) {
+        Article article = entityManager.find(Article.class, id);
+        Hibernate.initialize(article.getCategories());
+        return article;
+    }
+
+    @Transactional
+    public List<Article> findAllNoneDraft() {
+        Query query = entityManager.createQuery("select b from Article b where b.draft = false");
+        List<Article> articles = query.getResultList();
+        return articles;
+
+    }
+
 
 }

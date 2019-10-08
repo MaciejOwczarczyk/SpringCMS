@@ -45,7 +45,10 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    public String addProcess(@ModelAttribute @Validated Article article, BindingResult result) {
+    public String addProcess(@ModelAttribute @Validated({ArticleValidationGroup.class}) Article article, BindingResult result) {
+        if (article.isDraft()) {
+            return "forward:/draft/add";
+        }
         if (result.hasErrors()) {
             return "addArticle";
         }
@@ -56,7 +59,7 @@ public class ArticleController {
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        List<Article> articles = articleDao.findAll();
+        List<Article> articles = articleDao.findAllNoneDraft();
         model.addAttribute("articles", articles);
         return "showAllArticles";
     }
@@ -75,13 +78,16 @@ public class ArticleController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
-        Article article = articleDao.find(id);
+        Article article = articleDao.findWithCategories(id);
         model.addAttribute("article", article);
         return "addArticle";
     }
 
     @PostMapping("/edit/{id}")
-    public String editProcess(@PathVariable Long id, @ModelAttribute @Validated Article article, BindingResult result) {
+    public String editProcess(@PathVariable Long id, @ModelAttribute @Validated(ArticleValidationGroup.class) Article article, BindingResult result, Model model) {
+        if (article.isDraft()) {
+            return "forward:/draft/edit" + id;
+        }
         if (result.hasErrors()) {
             return "addArticle";
         }

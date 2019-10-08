@@ -7,6 +7,7 @@ import pl.coderslab.Category.Category;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,24 +20,27 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 200)
+    @NotBlank(groups = {ArticleValidationGroup.class, DraftValidationGroup.class})
+    @Size(max = 200, groups = {ArticleValidationGroup.class, DraftValidationGroup.class})
     private String title;
 
+    @NotNull(groups = {ArticleValidationGroup.class})
     @OneToOne
     private Author author;
 
-    @NotEmpty
+    @NotEmpty(groups = {ArticleValidationGroup.class})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
 
-    @NotBlank
-    @ContentLength
+    @NotBlank(groups = {ArticleValidationGroup.class, DraftValidationGroup.class})
+    @ContentLength(groups = {ArticleValidationGroup.class, DraftValidationGroup.class})
     private String content;
 
+    private boolean draft;
 
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
+
 
     @PrePersist
     public void prePersist() {
@@ -46,6 +50,14 @@ public class Article {
     @PreUpdate
     public void preUpdate() {
         updatedOn = LocalDateTime.now();
+    }
+
+    public boolean isDraft() {
+        return draft;
+    }
+
+    public void setDraft(boolean draft) {
+        this.draft = draft;
     }
 
     public Article() {

@@ -7,18 +7,12 @@ insert into authors (firstName, lastName) VALUES ('firstName', 'lastName');
 insert into authors (firstName, lastName) VALUES ('firstName', 'lastName');
 insert into authors (firstName, lastName) VALUES ('firstName', 'lastName');
 
-insert into articles (content, createdOn, title, author_id) VALUES ('contentaskkakasksksakasksksa', 20190101,'title', 1);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentallsoaslsalaslassa', 20180101,'title', 2);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentaassaasasassa', 20150101,'title', 3);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentsasasaasasassa', 20140101,'title', 3);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentasassasasaas', 20130101,'title', 4);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentassasasasasa', 20110101,'title', 5);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentasassasaas', 20110101,'title', 5);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentasasassaas', 20110101,'title', 5);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentassasssa', 20100101,'title', 5);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentasasasaas', 20110101,'title', 5);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentassasasaas', 20110101,'title', 5);
-insert into articles (content, createdOn, title, author_id) VALUES ('contentassasasasa', 20110101,'title', 5);
+insert into articles (content, createdOn, draft, title, author_id) VALUES ('kskksksakskskakakakakakaks', 20180101, false, 'title', 1);
+insert into articles (content, createdOn, draft, title, author_id) VALUES ('kskksksakskskakakakakakaks', 20170101, false, 'title1', 2);
+insert into articles (content, createdOn, draft, title, author_id) VALUES ('kskksksakskskakakakkakaks', 20190101, false, 'title2', 3);
+insert into articles (content, createdOn, draft, title, author_id) VALUES ('kskksksskskakakakakakaks', 20120101, false, 'title3', 3);
+insert into articles (content, createdOn, draft, title, author_id) VALUES ('kskksksakskskaakakakaks', 20181201, false, 'title4', 4);
+insert into articles (content, createdOn, draft, title, author_id) VALUES ('kskksksakskskakakakakakaks', 20171101, false, 'title5', 5);
 
 
 insert into categories (description, name) values ('thriller', 'rodzaj')
