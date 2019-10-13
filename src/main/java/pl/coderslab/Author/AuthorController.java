@@ -16,10 +16,12 @@ public class AuthorController {
 
     private final AuthorDao authorDao;
     private final ArticleDao articleDao;
+    private final AuthorRepository authorRepository;
 
-    public AuthorController(AuthorDao authorDao, ArticleDao articleDao) {
+    public AuthorController(AuthorDao authorDao, ArticleDao articleDao, AuthorRepository authorRepository) {
         this.authorDao = authorDao;
         this.articleDao = articleDao;
+        this.authorRepository = authorRepository;
     }
 
 
@@ -34,19 +36,19 @@ public class AuthorController {
         if (result.hasErrors()) {
             return "addAuthor";
         }
-        authorDao.save(author);
+        authorRepository.save(author);
         return "redirect:showAll";
     }
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        model.addAttribute("authors", authorDao.findAll());
+        model.addAttribute("authors", authorRepository.findAll());
         return "showAllAuthors";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
-        Author author = authorDao.find(id);
+        Author author = authorRepository.findAllById(id);
         model.addAttribute("author", author);
         return "addAuthor";
     }
@@ -56,7 +58,7 @@ public class AuthorController {
         if (result.hasErrors()) {
             return "addAuthor";
         }
-        authorDao.update(author);
+        authorRepository.save(author);
         return "redirect:../showAll";
     }
 
@@ -74,7 +76,7 @@ public class AuthorController {
                 return "deleteAuthorWarning";
             }
         }
-        authorDao.delete(id);
+        authorRepository.deleteById(id);
         return "redirect:../showAll";
     }
 }

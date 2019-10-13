@@ -26,6 +26,8 @@
         <label>Description:</label>
         <form:input path="description" type="text" id="descriptionId" class="form-control"/>
 
+        <br/>
+
         <input type="submit" class="btn btn-primary" value="Save">
     </form:form>
 </div>

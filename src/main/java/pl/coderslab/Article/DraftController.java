@@ -19,16 +19,18 @@ public class DraftController {
     private final ArticleDao articleDao;
     private final CategoryDao categoryDao;
     private final AuthorDao authorDao;
+    private final ArticleRepository articleRepository;
 
-    public DraftController(ArticleDao articleDao, CategoryDao categoryDao, AuthorDao authorDao) {
+    public DraftController(ArticleDao articleDao, CategoryDao categoryDao, AuthorDao authorDao, ArticleRepository articleRepository) {
         this.articleDao = articleDao;
         this.categoryDao = categoryDao;
         this.authorDao = authorDao;
+        this.articleRepository = articleRepository;
     }
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        List<Article> articles = articleDao.findDrafts();
+        List<Article> articles = articleRepository.findAllByDraft(true);
         model.addAttribute("articles", articles);
         return "showAllDraftArticles";
     }
@@ -50,13 +52,13 @@ public class DraftController {
             return "addArticle";
         }
         article.setAuthor(null);
-        articleDao.save(article);
+        articleRepository.save(article);
         return "redirect:showAll";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
-        Article article = articleDao.findWithCategories(id);
+        Article article = articleRepository.findAllByDraftAndId(true, id);
         model.addAttribute("article", article);
         return "addArticle";
     }
@@ -82,7 +84,7 @@ public class DraftController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        articleDao.delete(id);
+        articleRepository.deleteById(id);
         return "redirect:../showAll";
     }
 

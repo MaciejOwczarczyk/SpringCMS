@@ -26,6 +26,8 @@
         <form:input path="title" id="titleId" type="text" class="form-control"/>
         <form:errors path="title" cssClass="error">Maksymalnie 200 znaków</form:errors>
 
+        <form:hidden path="createdOn" class="createdOnId"/>
+
         <br/>
 
         <label>Content:</label>

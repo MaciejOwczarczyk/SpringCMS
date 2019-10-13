@@ -27,6 +27,8 @@
         <form:input path="lastName" type="text" id="descriptionId" class="form-control"/>
         <form:errors path="lastName" cssClass="error">Pole wymagane</form:errors>
 
+        <br/>
+
         <input type="submit" class="btn btn-primary" value="Save">
     </form:form>
 </div>

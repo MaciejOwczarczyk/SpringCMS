@@ -16,10 +16,12 @@ public class CategoryController {
 
     private final CategoryDao categoryDao;
     private final ArticleDao articleDao;
+    private final CategoryRepository categoryRepository;
 
-    public CategoryController(CategoryDao categoryDao, ArticleDao articleDao) {
+    public CategoryController(CategoryDao categoryDao, ArticleDao articleDao, CategoryRepository categoryRepository) {
         this.categoryDao = categoryDao;
         this.articleDao = articleDao;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -34,19 +36,19 @@ public class CategoryController {
         if (result.hasErrors()) {
             return "addCategory";
         }
-        categoryDao.save(category);
+        categoryRepository.save(category);
         return "redirect:showAll";
     }
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        model.addAttribute("categories", categoryDao.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "showAllCategories";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
-        Category category = categoryDao.find(id);
+        Category category = categoryRepository.findAllById(id);
         model.addAttribute("category", category);
         return "addCategory";
     }
@@ -56,7 +58,7 @@ public class CategoryController {
         if (result.hasErrors()) {
             return "addCategory";
         }
-        categoryDao.update(category);
+        categoryRepository.save(category);
         return "redirect:../showAll";
     }
 
@@ -77,7 +79,7 @@ public class CategoryController {
                 return "deleteCategoryWarning";
             }
         }
-        categoryDao.delete(id);
+        categoryRepository.deleteById(id);
         return "redirect:../showAll";
     }
 }

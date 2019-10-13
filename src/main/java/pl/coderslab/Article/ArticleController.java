@@ -11,7 +11,6 @@ import pl.coderslab.Category.Category;
 import pl.coderslab.Category.CategoryDao;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/article")
@@ -20,12 +19,14 @@ public class ArticleController {
     private final AuthorDao authorDao;
     private final CategoryDao categoryDao;
     private final ArticleDao articleDao;
+    private final ArticleRepository articleRepository;
 
 
-    public ArticleController(AuthorDao authorDao, CategoryDao categoryDao, ArticleDao articleDao) {
+    public ArticleController(AuthorDao authorDao, CategoryDao categoryDao, ArticleDao articleDao, ArticleRepository articleRepository) {
         this.authorDao = authorDao;
         this.categoryDao = categoryDao;
         this.articleDao = articleDao;
+        this.articleRepository = articleRepository;
     }
 
     @ModelAttribute("categories")
@@ -53,13 +54,13 @@ public class ArticleController {
             return "addArticle";
         }
         article.prePersist();
-        articleDao.save(article);
+        articleRepository.save(article);
         return "redirect:showAll";
     }
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        List<Article> articles = articleDao.findAllNoneDraft();
+        List<Article> articles = articleRepository.findAllByDraft(false);
         model.addAttribute("articles", articles);
         return "showAllArticles";
     }
@@ -72,13 +73,13 @@ public class ArticleController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        articleDao.delete(id);
+        articleRepository.deleteById(id);
         return "redirect:../showAll";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
-        Article article = articleDao.findWithCategories(id);
+        Article article = articleRepository.findAllByDraftAndId(false, id);
         model.addAttribute("article", article);
         return "addArticle";
     }
@@ -91,7 +92,8 @@ public class ArticleController {
         if (result.hasErrors()) {
             return "addArticle";
         }
-        articleDao.update(article);
+        article.preUpdate();
+        articleRepository.save(article);
         return "redirect:../showAll";
     }
 
